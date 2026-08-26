@@ -10,8 +10,8 @@ public class Main {
         System.out.println(auto);
         System.out.println();
 
-        auto.setAnio(1800);        // debe mostrar mensaje de error
-        auto.setNumPuertas(10);    // debe mostrar mensaje de error
+        auto.setAnio(1800);        
+        auto.setNumPuertas(10);   
         System.out.println();
 
         auto.setAnio(2023);
@@ -23,13 +23,26 @@ public class Main {
         System.out.println(avion);
         System.out.println();
 
-        avion.setAltitudMaxima(-100); // debe mostrar mensaje de error
+        avion.setAltitudMaxima(-100); 
         System.out.println();
 
         System.out.println("-- Barco --");
         System.out.println(barco);
         System.out.println();
 
-        barco.setTonelajeMaximo(-5); // debe mostrar mensaje de error
+        barco.setTonelajeMaximo(-5); 
     }
+
 }
+/* Preguntas 
+
+¿Cuál es la diferencia entre private y protected? ¿En qué situación usarías cada uno?
+Private es un acceso muy controlado solo para la misma clase y protected permite el acceso a un paquete
+
+¿Por qué marca y modelo no tienen setter? ¿Qué implica eso en el diseño?
+marca y modelo no tienen setter porque son atributos que no deberían cambiar una vez que se crea el objeto
+
+¿Qué pasaría si un setter no tuviera validación y alguien pusiera un año negativo?
+errores en el funcionamiento del programa.
+
+*/
