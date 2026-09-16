@@ -79,4 +79,15 @@ class GestorBatalla {
             System.out.println(evento);
         }
     }
+    /*
+    ¿Cuál es la diferencia entre sobreescritura (@Override) y sobrecarga (overload)? Da un ejemplo de cada uno tomado de este laboratorio.
+        La diferencia es sobre como se van a definir los metodos, la sobrecarga son metodos con el mismo nombre con diferentes parametros, 
+        la sobreescritura es cuando cambio el metodo del padre en la clase hijo
+
+    Si tienes Personaje p = new Mago(...) y llamas p.calcularDanio(), ¿Java usa el método de Personaje o el de Mago? ¿Por qué?
+    Utiliza el Mago porque es de tipo Mago
+    ¿Para qué sirve instanceof? ¿En qué situaciones lo usarías en un sistema real?
+    Sirve para saber el tipo de objeto que es
+    
+    */ 
 }
