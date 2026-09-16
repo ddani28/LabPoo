@@ -40,6 +40,10 @@ public class Personaje implements Combatiente {
         }
     }
 
+    public int calcularDanio() {
+        return nivel * 10;
+    }
+
     @Override
     public void atacar() {
         System.out.println(nombre + " ataca con un golpe básico.");
@@ -50,15 +54,10 @@ public class Personaje implements Combatiente {
         System.out.println(nombre + " se pone en guardia.");
     }
 
-    @Override
-    public String toString() {
-        return "Nombre: " + nombre + " | Nivel: " + nivel + " | Vida: " + puntosVida
-                + " | Vivo: " + (estaVivo ? "Sí" : "No");
-    }
-     public void mostrarEstado() {
+    public void mostrarEstado() {
         System.out.println(nombre + " - Vida: " + puntosVida);
     }
- 
+
     public void mostrarEstado(boolean detallado) {
         if (detallado) {
             System.out.println(this.toString());
@@ -66,10 +65,15 @@ public class Personaje implements Combatiente {
             mostrarEstado();
         }
     }
- 
+
     public void mostrarEstado(String prefijo) {
         System.out.println(prefijo + " " + nombre + " - Vida: " + puntosVida
                 + " | Vivo: " + (estaVivo ? "Sí" : "No"));
     }
- 
+
+    @Override
+    public String toString() {
+        return "Nombre: " + nombre + " | Nivel: " + nivel + " | Vida: " + puntosVida
+                + " | Vivo: " + (estaVivo ? "Sí" : "No");
+    }
 }
