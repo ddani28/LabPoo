@@ -2,11 +2,17 @@ public class Arquero extends Personaje {
 
     private int precision;
     private int flechasDisponibles;
+    private String tipoArco;
 
-    public Arquero(String nombre, int nivel, int puntosVida, int precision, int flechasDisponibles) {
+   public Arquero(String nombre, int nivel, int puntosVida, String tipoArco, int flechasDisponibles, int precision) {
         super(nombre, nivel, puntosVida);
-        this.precision = precision;
+        this.tipoArco = tipoArco;
         this.flechasDisponibles = flechasDisponibles;
+        this.precision = precision;
+   }
+
+     public String getTipoArco() {
+        return tipoArco;
     }
 
     public int getPrecision() {
@@ -17,9 +23,17 @@ public class Arquero extends Personaje {
         return flechasDisponibles;
     }
 
+    public int calcularDanio() {
+        return precision * flechasDisponibles;
+    }
+
     @Override
     public void atacar() {
-        System.out.println(getNombre() + " dispara una flecha con precisión del " + precision + "%.");
+        super.atacar();
+        if (flechasDisponibles > 0) {
+            flechasDisponibles--;
+        }
+        System.out.println(getNombre() + " dispara una flecha. Flechas restantes: " + flechasDisponibles);
     }
 
     @Override
@@ -27,8 +41,9 @@ public class Arquero extends Personaje {
         System.out.println(getNombre() + " se desplaza ágilmente esquivando el ataque.");
     }
 
-    @Override
+     @Override
     public String toString() {
-        return super.toString() + " | Precisión: " + precision + "% | Flechas: " + flechasDisponibles;
+        return super.toString() + " | Arco: " + tipoArco + " | Precisión: " + precision
+                + "% | Flechas: " + flechasDisponibles;
     }
 }

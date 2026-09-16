@@ -55,4 +55,21 @@ public class Personaje implements Combatiente {
         return "Nombre: " + nombre + " | Nivel: " + nivel + " | Vida: " + puntosVida
                 + " | Vivo: " + (estaVivo ? "Sí" : "No");
     }
+     public void mostrarEstado() {
+        System.out.println(nombre + " - Vida: " + puntosVida);
+    }
+ 
+    public void mostrarEstado(boolean detallado) {
+        if (detallado) {
+            System.out.println(this.toString());
+        } else {
+            mostrarEstado();
+        }
+    }
+ 
+    public void mostrarEstado(String prefijo) {
+        System.out.println(prefijo + " " + nombre + " - Vida: " + puntosVida
+                + " | Vivo: " + (estaVivo ? "Sí" : "No"));
+    }
+ 
 }

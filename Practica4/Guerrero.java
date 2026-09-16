@@ -17,6 +17,10 @@ public class Guerrero extends Personaje {
         return armadura;
     }
 
+    public int calcularDanio() {
+        return fuerza * getNivel();
+    }
+
     @Override
     public void atacar() {
         super.atacar();
@@ -27,9 +31,28 @@ public class Guerrero extends Personaje {
     public void defender() {
         System.out.println(getNombre() + " bloquea con su armadura de " + armadura + ".");
     }
+      
+    public void entrenar() {
+        fuerza += 5;
+        System.out.println(getNombre() + " entrena y sube su fuerza a " + fuerza + ".");
+    }
+
+      public void entrenar(int sesiones) {
+        fuerza += 5 * sesiones;
+        System.out.println(getNombre() + " entrena " + sesiones + " sesiones y sube su fuerza a " + fuerza + ".");
+    }
+ 
+    public void entrenar(int sesiones, boolean intensivo) {
+        int incremento = 5 * sesiones * (intensivo ? 2 : 1);
+        fuerza += incremento;
+        System.out.println(getNombre() + " entrena " + sesiones + " sesiones "
+                + (intensivo ? "de forma intensiva " : "") + "y sube su fuerza a " + fuerza + ".");
+    }
 
     @Override
     public String toString() {
         return super.toString();
     }
+
+    
 }

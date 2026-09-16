@@ -16,6 +16,10 @@ public class Mago extends Personaje {
     public String getEscuelaMagia() {
         return escuelaMagia;
     }
+     
+    public int calcularDanio() {
+        return mana * getNivel();
+    }
 
     @Override
     public void atacar() {
