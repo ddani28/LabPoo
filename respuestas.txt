@@ -1,0 +1,70 @@
+Laboratorio 10 - Concurrencia con hilos
+Alumno: Daniel Antonio Chávez Peña
+Matrícula: 1956765
+Materia: Laboratorio de Programación Orientada a Objetos
+
+----------------------------------------------------------------------
+1. ¿Cuál es la diferencia entre extends Thread e implements Runnable?
+   ¿Cuándo preferirías uno sobre el otro?
+----------------------------------------------------------------------
+Con extends Thread la clase ES un hilo: hereda de java.lang.Thread y
+sobrescribe run(), como hicimos en MonitorTorneo. Con implements Runnable
+la clase solo describe la tarea que se va a ejecutar (el método run()) y
+después se la entregamos a un Thread con new Thread(tarea), como hicimos
+con CombateConcurrente.
+
+La diferencia principal es que Java no permite herencia múltiple de
+clases. Si CombateConcurrente extendiera Thread ya no podría extender
+ninguna otra clase, mientras que con Runnable sí puede (y además puede
+implementar otras interfaces). Runnable también separa "qué se hace" de
+"cómo se ejecuta": la misma tarea se podría correr en un Thread, en un
+ExecutorService o en un pool de hilos sin cambiar la clase.
+
+Prefiero implements Runnable en casi todos los casos, porque es más
+flexible y es lo que se usa en código profesional. Usaría extends Thread
+solo en un caso simple como MonitorTorneo, donde la clase no necesita
+heredar de nada más y su único propósito es ser un hilo.
+
+----------------------------------------------------------------------
+2. ¿Qué es una race condition? Explica con el ejemplo del
+   ContadorCompartido por qué el resultado sin synchronized puede ser
+   menor al esperado.
+----------------------------------------------------------------------
+Una race condition (condición de carrera) ocurre cuando varios hilos
+leen y modifican el mismo dato compartido al mismo tiempo y el resultado
+final depende del orden en que el planificador del sistema los intercala.
+
+En ContadorCompartido, la instrucción contador++ parece una sola
+operación, pero en realidad son tres pasos: (1) leer el valor de
+contador, (2) sumarle 1 y (3) escribir el resultado de vuelta. Si dos
+hilos hacen el paso 1 antes de que alguno haga el paso 3, ambos leen el
+mismo valor, por ejemplo 100, ambos calculan 101 y ambos escriben 101.
+Se hicieron dos incrementos, pero el contador solo subió 1: se perdió una
+actualización. Como esto pasa muchas veces entre los 5 hilos, el total
+queda por debajo del esperado. En mi ejecución el contador sin synchronized
+dio 15,315,085 en lugar de 25,000,000, y además el valor cambia en cada
+corrida porque depende de cómo se intercalen los hilos.
+
+Con incrementarSeguro(), la palabra synchronized hace que solo un hilo a
+la vez pueda ejecutar el método sobre ese objeto; los demás esperan su
+turno. Así los tres pasos se completan sin interrupciones y el resultado
+siempre es el esperado.
+
+----------------------------------------------------------------------
+3. ¿Para qué sirve join()? ¿Qué pasaría si quitaras los join() del
+   bloque 3 antes de llamar tabla.mostrarResultados()?
+----------------------------------------------------------------------
+join() hace que el hilo que lo llama (aquí el hilo main) se quede
+esperando hasta que el hilo sobre el que se llama termine su run().
+Sirve para sincronizar: asegurar que cierto trabajo ya terminó antes de
+continuar.
+
+Si quitara los join() del bloque 3, main no esperaría a los combates:
+después de hacer start() seguiría de inmediato y llamaría a
+tabla.mostrarResultados() mientras los hilos todavía están en sus
+rondas (cada ronda tarda 500 ms por el sleep). La tabla estaría vacía o
+con menos de 3 registros, y mostraría "Total de combates: 0" (o un número
+incompleto). Los combates terminarían después y sus mensajes aparecerían
+mezclados, ya cuando el programa principal habría impreso resultados
+incorrectos. Lo mismo pasaría en el bloque 4: sin join() se imprimiría el
+contador antes de que los hilos terminaran de incrementar.

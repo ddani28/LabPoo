@@ -49,6 +49,7 @@ public class Main {
             persistencia.agregarEntradaBitacora("Thorin venció a Dragón de Hielo");
 
             persistencia.mostrarBitacora();
+
             System.out.println("\n##### BLOQUE 5: Archivos #####");
             File carpeta = new File("datos_gremio");
             System.out.println("\n=== Archivos en datos_gremio/ ===");
