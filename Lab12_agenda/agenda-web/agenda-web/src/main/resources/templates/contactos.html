@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contactos</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Lista de contactos</h1>
+
+    <p><a th:href="@{/nuevo}">+ Agregar contacto</a></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="c : ${contactos}">
+                <td th:text="${c.id}"></td>
+                <td th:text="${c.nombre}"></td>
+                <td th:text="${c.apellido}"></td>
+                <td th:text="${c.email}"></td>
+                <td th:text="${c.telefono}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(contactos)}">
+                <td colspan="5">No hay contactos guardados.</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
