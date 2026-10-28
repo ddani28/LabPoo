@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "HolaMundoApplication",
+            "request": "launch",
+            "mainClass": "com.gremio.HolaMundoApplication",
+            "projectName": "hola-mundo"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-HolaMundoApplication<hola-mundo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.gremio.hola_mundo.HolaMundoApplication",
+            "projectName": "hola-mundo",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
